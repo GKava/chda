@@ -52,19 +52,19 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     public void randomSound(int rand) {
 
 
-        if (rand == 1) {
+        if (rand == 0) {
             mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tineti);
             mediaPlayer.start();
         }
-        if (rand == 2) {
+        if (rand == 1) {
             mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tidaone);
             mediaPlayer.start();
         }
-        if (rand == 3) {
+        if (rand == 2) {
             mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tida);
             mediaPlayer.start();
         }
-        if (rand == 4) {
+        if (rand == 3) {
             mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tida2);
             mediaPlayer.start();
         }
