@@ -87,7 +87,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
             chiDa = mSettings.getInt(APP_PREFERENCES_CHIDA, 0);
 
         }
-        header.setText(" Edward Bill \n Чи да: " + chiDa);
+        header.setText(" Edward Bill \n Чи да: " + chiDa +" coin");
     }
 
     @Override
@@ -128,7 +128,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
             case R.id.shareview:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Чи да? Мой счёт " + chiDa + " Скачивай в Google Play приложение (Чи да) ");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Чи да, скачивай в Google Play приложение - https://play.google.com/store/apps/details?id=com.edwardbil_prank.tidatopstyle ");
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Поделиться"));
                 break;
@@ -136,7 +136,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
                 int rnd = random.nextInt(4);
                 randomSound(rnd);
                 chiDa++;
-                header.setText(" Edward Bill \n Чи да: " + chiDa);
+                header.setText(" Edward Bill \n Чи да: " + chiDa +" coin");
                 break;
             case R.id.admob:
                 if (mRewardedVideoAd.isLoaded()) {
@@ -147,6 +147,15 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         }
 
     }
+    public void testForOpenButton(){
+        if (chiDa >= 500){
+
+            // set visibility
+        }
+    }
+
+
+
 
     private void releaseMP() {
         if (mediaPlayer != null) {
@@ -193,12 +202,12 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        chiDa =chiDa+500;
-        header.setText(" Edward Bill \n Чи да: " + chiDa);
+        chiDa =chiDa+300;
+        header.setText(" Edward Bill \n Чи да: " + chiDa +" coin");
 
         mSettings.edit().putInt(APP_PREFERENCES_CHIDA, chiDa).apply();
 
-        Toast.makeText(getActivity(), "Начисленно 500 Чи Да coin. ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Начисленно 300 Чи Да coin. ", Toast.LENGTH_SHORT).show();
         // Reward the user.
 
     }
