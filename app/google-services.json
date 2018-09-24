@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "845047939985",
+    "firebase_url": "https://tidatopstyle.firebaseio.com",
+    "project_id": "tidatopstyle",
+    "storage_bucket": "tidatopstyle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845047939985:android:b3d58c11f1ddc9bd",
+        "android_client_info": {
+          "package_name": "com.edwardbil_prank.tidatopstyle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845047939985-iubvk9aclt3s16a3vq2nv5ot86f72sud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edwardbil_prank.tidatopstyle",
+            "certificate_hash": "7ae91f85b3c22d9a9fd4cdebe6f88e07bfc6fed4"
+          }
+        },
+        {
+          "client_id": "845047939985-9p4pblpvp98kbbtopgms14cusaj8fk28.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqmSkH-G8X7-6GLBqcQuMfU0NKfp2482c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845047939985-9p4pblpvp98kbbtopgms14cusaj8fk28.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
