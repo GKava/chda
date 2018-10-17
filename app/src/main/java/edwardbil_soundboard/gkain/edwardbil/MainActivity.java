@@ -1,9 +1,12 @@
 package edwardbil_soundboard.gkain.edwardbil;
 
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -51,5 +54,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mAdView.pause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
+        openQuitDialog();
+    }
+
+    private void openQuitDialog() {
+        AlertDialog.Builder quitDialog = new AlertDialog.Builder(
+                MainActivity.this);
+        quitDialog.setTitle("Вы действительно хотите выйти?");
+
+        quitDialog.setPositiveButton("Чи да", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                finish();
+            }
+        });
+
+        quitDialog.setNegativeButton("Чи нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+        quitDialog.show();
     }
 }

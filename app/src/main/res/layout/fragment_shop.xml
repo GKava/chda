@@ -1,0 +1,69 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edwardbil_soundboard.gkain.edwardbil.ShopFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header"
+        android:gravity="center"
+        android:text="МАГАЗИН"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="Будет доступен в одном из следующих обновлений. "
+        android:textSize="30dp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Здесь вы сможете потратить заработанные вами ChiDaCoins. \n На что их можно потратить? \n Возможные варианты: "
+        android:textSize="20dp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:text=" 1. Получить с пыра \n 2. Получить подорожник от Эдварда\n 3. Отхватить с вертухи  \n\nПишите свои предложения по поводу того, что добавить в магазин, для этого поставьте оценку приложению и напишите в отзыве что бы вы хотели увидеть в приложении."
+        android:textSize="20dp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <Button
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/comment"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundbutton"
+        android:gravity="center"
+        android:text="НАПИСАТЬ ОТЗЫВ"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+</android.support.constraint.ConstraintLayout>

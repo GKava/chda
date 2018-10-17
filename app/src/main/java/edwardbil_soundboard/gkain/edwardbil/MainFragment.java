@@ -35,17 +35,19 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     MediaPlayer mediaPlayer;
     Button randoms;
     Button admob;
-    ImageView shareview,helpview;
+    ImageView shareview,helpview,shop;
     TextView header;
     Random random = new Random();
     int chiDa = 0;
-    int eboInt = 0;
     int chiDaIncrement=1;
     int checkpoint=0;
     private RewardedVideoAd mRewardedVideoAd;
     private InterstitialAd mInterstitialAd;
-    TextView soundtxt2,soundtxt3,soundtxt4,soundtxt5,soundtxt6,soundtxt7,soundtxt8,soundtxt9,soundtxt10,soundtxt11;
-    Button soundbutton2,soundbutton3,soundbutton4,soundbutton5,soundbutton6,soundbutton7,soundbutton8,soundbutton9,soundbutton10,soundbutton11;
+    TextView soundtxt2,soundtxt3,soundtxt4,soundtxt5,soundtxt6,soundtxt7,soundtxt8,soundtxt9,soundtxt10,soundtxt11, btntxt1,btntxt2,btntxt3,btntxt4,btntxt5,btntxt6,btntxt7;
+    Button soundbutton2,soundbutton3,soundbutton4,soundbutton5,soundbutton6,soundbutton7,soundbutton8,soundbutton9,soundbutton10,soundbutton11,btn1,btn2,btn3,btn4,btn5,btn6,btn7;
+
+
+
     private final int IDD_THREE_BUTTONS = 0;
     Context context;
     //    private InterstitialAd mInterstitialAd;
@@ -80,6 +82,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
             checkpoint = mSettings.getInt(APP_PREFERENCES_CHECKPOINT, 0);
         }
 
+
         header.setText(" Баланс \n ChiDaCoin: " + chiDa );
         testForOpenButton();
     }
@@ -97,6 +100,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
 
         helpview = view.findViewById(R.id.helpview);
         shareview = view.findViewById(R.id.shareview);
+        shop = view.findViewById(R.id.shop);
         header = view.findViewById(R.id.header);
         randoms = view.findViewById(R.id.randomss);
         admob = view.findViewById(R.id.admob);
@@ -126,6 +130,40 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         soundbutton11 = view.findViewById(R.id.soundbutton11);
 
 
+        btntxt1 = view.findViewById(R.id.btntxt1);
+        btntxt2 = view.findViewById(R.id.btntxt2);
+        btntxt3 = view.findViewById(R.id.btntxt3);
+        btntxt4 = view.findViewById(R.id.btntxt4);
+        btntxt5 = view.findViewById(R.id.btntxt5);
+        btntxt6 = view.findViewById(R.id.btntxt6);
+        btntxt7 = view.findViewById(R.id.btntxt7);
+
+        btn1 = view.findViewById(R.id.btn1);
+        btn2 = view.findViewById(R.id.btn2);
+        btn3 = view.findViewById(R.id.btn3);
+        btn4 = view.findViewById(R.id.btn4);
+        btn5 = view.findViewById(R.id.btn5);
+        btn6 = view.findViewById(R.id.btn6);
+        btn7 = view.findViewById(R.id.btn7);
+
+
+//        btntxt1.setOnClickListener(this);
+//        btntxt2.setOnClickListener(this);
+//        btntxt3.setOnClickListener(this);
+//        btntxt4.setOnClickListener(this);
+//        btntxt5.setOnClickListener(this);
+//        btntxt6.setOnClickListener(this);
+//        btntxt7.setOnClickListener(this);
+
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
+        btn5.setOnClickListener(this);
+        btn6.setOnClickListener(this);
+        btn7.setOnClickListener(this);
+
+
         randoms.setOnClickListener(this);
         shareview.setOnClickListener(this);
         admob.setOnClickListener(this);
@@ -143,6 +181,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         soundbutton10.setOnClickListener(this);
         soundbutton11.setOnClickListener(this);
         helpview.setOnClickListener(this);
+        shop.setOnClickListener(this);
 
 
 
@@ -186,12 +225,23 @@ public void incrementRegreshTxt(){
     public void onClick(View view) {
       //  releaseMP();
         switch (view.getId()) {
+            case R.id.shop:
+                MainActivity.fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new ShopFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+                break;
             case R.id.helpview:
-               createHelpDialog("Help","ChiDaCoins игровая валюта, с помощью которой можно открывать новые звуки и получать бонусы.\n \n" +
+               createHelpDialog("Помощь","ChiDaCoins игровая валюта, с помощью которой можно открывать новые звуки и получать бонусы.\n \n" +
                        "Достигая определенных отметок вы начнете получать дополнительные ChiDaCois. \n\n" +
-                       "1000 ChiDaCois   +2 за клик. \n" +
-                       "10000 ChiDaCois +3 за клик. \n" +
-                       "50000 ChiDaCois +5 за клик. \n\n" +
+                       "1.000 ChiDaCois   +2 за клик. \n" +
+                       "10.000 ChiDaCois +3 за клик. \n" +
+                       "50.000 ChiDaCois +5 за клик. \n" +
+                       "100.000 ChiDaCois +7 за клик. \n" +
+                       "250.000 ChiDaCois +8 за клик. \n" +
+                       "500.000 ChiDaCois +10 за клик. \n\n" +
+                       "*После удаления приложения игровой прогресс утрачивается* \n\n" +
                        "Так же вы можете получить 500 ChiDaCoins просмотрев видео с рекламой. \n");
                 break;
             case R.id.shareview:
@@ -217,10 +267,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tineti);
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 100 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("100");
                 }
 
                 break;
@@ -231,10 +278,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tida3 );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Что бы открыть этот звук, наберите 350 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("350");
                 }
                 break;
             case R.id.soundbutton4:
@@ -244,10 +288,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.chidarobot );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 700 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("700");
                 }
                 break;
             case R.id.soundbutton5:
@@ -257,10 +298,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.neti );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 1000 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("1.000");
                 }
                 break;
             case R.id.soundbutton6:
@@ -270,10 +308,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k7500 );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 5000 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("5.000");
                 }
                 break;
             case R.id.soundbutton7:
@@ -283,10 +318,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k10000 );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 10000 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("10.000");
                 }
                 break;
             case R.id.soundbutton8:
@@ -296,10 +328,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k15000 );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 15000 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("15.000");
                 }
                 break;
             case R.id.soundbutton9:
@@ -309,10 +338,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k20000 );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 20000 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("20.000");
                 }
                 break;
             case R.id.soundbutton10:
@@ -322,10 +348,7 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k30000 );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 30000 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("30.000");
                 }
                 break;
             case R.id.soundbutton11:
@@ -335,33 +358,96 @@ public void incrementRegreshTxt(){
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k50000 );
                     mediaPlayer.start();
                 } else {
-                    tiEbanyti();
-                    Toast toast = Toast.makeText(getActivity(),
-                            "Чтобы открыть этот звук, наберите 50000 ChiDaCoins!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("50.000");
                 }
                 break;
 
+            case R.id.btn1:
+                if (chiDa>=75000){
+                    releaseMP();
+                    incrementRegreshTxt();
+                    mediaPlayer = MediaPlayer.create(getActivity(), R.raw.neproshaytakix);
+                    mediaPlayer.start();
+                } else {
+                    showToast("75.000");
+                }
+                break;
 
+            case R.id.btn2:
+                if (chiDa>=100000){
+                    releaseMP();
+                    incrementRegreshTxt();
+                    mediaPlayer = MediaPlayer.create(getActivity(), R.raw.vizivaitemcs);
+                    mediaPlayer.start();
+                } else {
+                    showToast("100.000");
+                }
+                break;
+
+            case R.id.btn3:
+                if (chiDa>=150000){
+                    releaseMP();
+                    incrementRegreshTxt();
+                    mediaPlayer = MediaPlayer.create(getActivity(), R.raw.vsexobliaaal);
+                    mediaPlayer.start();
+                } else {
+                    showToast("150.000");
+                }
+                break;
+
+            case R.id.btn4:
+                if (chiDa>=250000){
+                    releaseMP();
+                    incrementRegreshTxt();
+                    mediaPlayer = MediaPlayer.create(getActivity(), R.raw.scastyazdorovia);
+                    mediaPlayer.start();
+                } else {
+                    showToast("250.000");
+                }
+                break;
+
+            case R.id.btn5:
+                if (chiDa>=350000){
+                    releaseMP();
+                    incrementRegreshTxt();
+                    mediaPlayer = MediaPlayer.create(getActivity(), R.raw.okno);
+                    mediaPlayer.start();
+                } else {
+                    showToast("350.000");
+                }
+                break;
+
+            case R.id.btn6:
+                if (chiDa>=500000){
+                    releaseMP();
+                    incrementRegreshTxt();
+                    mediaPlayer = MediaPlayer.create(getActivity(), R.raw.proshyogidat);
+                    mediaPlayer.start();
+                } else {
+                    showToast("500.000");
+                }
+                break;
+
+            case R.id.btn7:
+                if (chiDa>=1000000){
+                    releaseMP();
+                    incrementRegreshTxt();
+                    mediaPlayer = MediaPlayer.create(getActivity(), R.raw.svertuxi);
+                    mediaPlayer.start();
+                } else {
+                    showToast("1000.000");
+                }
+                break;
         }
 
     }
-    public void tiEbanyti(){
-        eboInt++;
-        if (eboInt ==7){
-            mediaPlayer = MediaPlayer.create(getActivity(), R.raw.otvetmonkey );
-            mediaPlayer.start();
-        }
-        if (eboInt ==30){
-            mediaPlayer = MediaPlayer.create(getActivity(), R.raw.otvetmonkey );
-            mediaPlayer.start();
-        }
-        if (eboInt ==50){
-            mediaPlayer = MediaPlayer.create(getActivity(), R.raw.otvetmonkey );
-            mediaPlayer.start();
-        }
-    }
 
+    public void showToast (String col){
+        Toast toast = Toast.makeText(getActivity(),
+                "Чтобы открыть этот звук, наберите "+ col + " ChiDaCoins!", Toast.LENGTH_SHORT);
+        toast.show();
+
+    }
 
 
     public void testForOpenButton(){
@@ -377,7 +463,7 @@ public void incrementRegreshTxt(){
         }
         if (chiDa >= 1000){
             soundtxt5.setText("Не ти");
-            chiDaIncrement=2;
+            chiDaIncrement=3;
         }
         if (chiDa >= 5000){
             soundtxt6.setText("Чи да Light");
@@ -405,6 +491,39 @@ public void incrementRegreshTxt(){
                         "Это поможет вам быстрее получить новые плюшки в следующих обновлениях ;) ");
             }
         }
+
+        if (chiDa >= 75000){
+            btntxt1.setText("Я не прощаю таких");
+        }
+
+        if (chiDa >= 100000){
+            chiDaIncrement=7;
+            btntxt2.setText("Вызывайте МЧС");
+        }
+        if (chiDa >= 150000){
+            btntxt3.setText("Обнимашки");
+        }
+        if (chiDa >= 250000){
+            chiDaIncrement=8;
+            btntxt4.setText("Счастья здоровья");
+        }
+        if (chiDa >= 350000){
+            btntxt5.setText("Идите домой");
+        }
+        if (chiDa >= 500000){
+            chiDaIncrement=10;
+            btntxt6.setText("Прошу ожидать");
+        }
+        if (chiDa >= 1000000){
+            chiDaIncrement=30;
+            btntxt7.setText("WIN");
+            if (checkpoint==1){
+                checkpoint=5;
+                createTwoButtonsAlertDialogRecord("!!! ПОЗДРАВЛЯЕМ !!!","Вы набрали 1 Миллион ChiDaCoins!!! \n" +
+                        "Отныне за каждый клик вам будет начисляться по 30 ChiDaCois на баланс вместо 10 \n" +
+                        "Это поможет вам быстрее получить новые плюшки в следующих обновлениях ;) ");
+            }
+        }
     }
     private void createHelpDialog(String title, String content) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -425,7 +544,7 @@ public void incrementRegreshTxt(){
                             mRewardedVideoAd.show();
                         } else {
                             Toast toast = Toast.makeText(getActivity(),
-                                    "Что-то пошло не так, возможно проблемы с интернетом или загрузкой рекламы \nПопробуйте сделать это позже.", Toast.LENGTH_SHORT);
+                                    "Что-то пошло не так, возможно проблемы с интернетом или загрузкой рекламы \nПопробуйте посмотреть видео позже.", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     }
