@@ -10,9 +10,12 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,17 +48,12 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     private InterstitialAd mInterstitialAd;
     TextView soundtxt2,soundtxt3,soundtxt4,soundtxt5,soundtxt6,soundtxt7,soundtxt8,soundtxt9,soundtxt10,soundtxt11, btntxt1,btntxt2,btntxt3,btntxt4,btntxt5,btntxt6,btntxt7;
     Button soundbutton2,soundbutton3,soundbutton4,soundbutton5,soundbutton6,soundbutton7,soundbutton8,soundbutton9,soundbutton10,soundbutton11,btn1,btn2,btn3,btn4,btn5,btn6,btn7;
-
-
-
-    private final int IDD_THREE_BUTTONS = 0;
     Context context;
     //    private InterstitialAd mInterstitialAd;
     public static final String APP_PREFERENCES_CHIDA = "act";
     public static final String APP_PREFERENCES_CHECKPOINT = "checkpoint";
     public static final String APP_PREFERENCES = "mysettings";
     private SharedPreferences mSettings;
-    AlertDialog.Builder ad;
 
     public MainFragment() {
         // Required empty public constructor
@@ -104,6 +102,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         header = view.findViewById(R.id.header);
         randoms = view.findViewById(R.id.randomss);
         admob = view.findViewById(R.id.admob);
+
 
         soundtxt2 = view.findViewById(R.id.soundtxt2);
         soundtxt3 = view.findViewById(R.id.soundtxt3);
@@ -253,6 +252,11 @@ public void incrementRegreshTxt(){
                 break;
             case R.id.randomss:
                 releaseMP();
+
+                Animation animation = null;
+                animation = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                randoms.startAnimation(animation);
+
                 mediaPlayer = MediaPlayer.create(getActivity(), R.raw.chidatop);
                 mediaPlayer.start();
                 incrementRegreshTxt();
@@ -263,6 +267,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton2:
                 if (chiDa>=100){
                     releaseMP();
+
+                    Animation animation2 = null;
+                    animation2 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton2.startAnimation(animation2);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tineti);
                     mediaPlayer.start();
