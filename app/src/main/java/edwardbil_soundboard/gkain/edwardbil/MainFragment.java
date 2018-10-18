@@ -88,7 +88,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_main,
                 container, false);
 
@@ -103,7 +102,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         randoms = view.findViewById(R.id.randomss);
         admob = view.findViewById(R.id.admob);
 
-
         soundtxt2 = view.findViewById(R.id.soundtxt2);
         soundtxt3 = view.findViewById(R.id.soundtxt3);
         soundtxt4 = view.findViewById(R.id.soundtxt4);
@@ -115,8 +113,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         soundtxt10 = view.findViewById(R.id.soundtxt10);
         soundtxt11 = view.findViewById(R.id.soundtxt11);
 
-
-
         soundbutton2 = view.findViewById(R.id.soundbutton2);
         soundbutton3 = view.findViewById(R.id.soundbutton3);
         soundbutton4 = view.findViewById(R.id.soundbutton4);
@@ -127,7 +123,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         soundbutton9 = view.findViewById(R.id.soundbutton9);
         soundbutton10 = view.findViewById(R.id.soundbutton10);
         soundbutton11 = view.findViewById(R.id.soundbutton11);
-
 
         btntxt1 = view.findViewById(R.id.btntxt1);
         btntxt2 = view.findViewById(R.id.btntxt2);
@@ -144,15 +139,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         btn5 = view.findViewById(R.id.btn5);
         btn6 = view.findViewById(R.id.btn6);
         btn7 = view.findViewById(R.id.btn7);
-
-
-//        btntxt1.setOnClickListener(this);
-//        btntxt2.setOnClickListener(this);
-//        btntxt3.setOnClickListener(this);
-//        btntxt4.setOnClickListener(this);
-//        btntxt5.setOnClickListener(this);
-//        btntxt6.setOnClickListener(this);
-//        btntxt7.setOnClickListener(this);
 
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
