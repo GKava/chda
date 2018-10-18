@@ -269,6 +269,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton3:
                 if (chiDa>=350){
                     releaseMP();
+
+                    Animation animation3 = null;
+                    animation3 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton3.startAnimation(animation3);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tida3 );
                     mediaPlayer.start();
@@ -279,6 +284,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton4:
                 if (chiDa>=700){
                     releaseMP();
+
+                    Animation animation4 = null;
+                    animation4 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton4.startAnimation(animation4);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.chidarobot );
                     mediaPlayer.start();
@@ -289,6 +299,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton5:
                 if (chiDa>=1000){
                     releaseMP();
+
+                    Animation animation5 = null;
+                    animation5 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton5.startAnimation(animation5);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.neti );
                     mediaPlayer.start();
@@ -299,6 +314,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton6:
                 if (chiDa>=5000){
                     releaseMP();
+
+                    Animation animation6 = null;
+                    animation6 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton6.startAnimation(animation6);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k7500 );
                     mediaPlayer.start();
@@ -309,6 +329,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton7:
                 if (chiDa>=10000){
                     releaseMP();
+
+                    Animation animation7 = null;
+                    animation7 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton7.startAnimation(animation7);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k10000 );
                     mediaPlayer.start();
@@ -319,6 +344,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton8:
                 if (chiDa>=15000){
                     releaseMP();
+
+                    Animation animation8 = null;
+                    animation8 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton8.startAnimation(animation8);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k15000 );
                     mediaPlayer.start();
@@ -329,6 +359,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton9:
                 if (chiDa>=20000){
                     releaseMP();
+
+                    Animation animation9 = null;
+                    animation9 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton9.startAnimation(animation9);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k20000 );
                     mediaPlayer.start();
@@ -339,6 +374,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton10:
                 if (chiDa>=30000){
                     releaseMP();
+
+                    Animation animation10 = null;
+                    animation10 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton10.startAnimation(animation10);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k30000 );
                     mediaPlayer.start();
@@ -349,6 +389,11 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton11:
                 if (chiDa>=50000){
                     releaseMP();
+
+                    Animation animation11 = null;
+                    animation11 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    soundbutton11.startAnimation(animation11);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k50000 );
                     mediaPlayer.start();
@@ -360,6 +405,11 @@ public void incrementRegreshTxt(){
             case R.id.btn1:
                 if (chiDa>=75000){
                     releaseMP();
+
+                    Animation animation12 = null;
+                    animation12 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    btn1.startAnimation(animation12);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.neproshaytakix);
                     mediaPlayer.start();
@@ -371,6 +421,12 @@ public void incrementRegreshTxt(){
             case R.id.btn2:
                 if (chiDa>=100000){
                     releaseMP();
+
+                    Animation animation13 = null;
+                    animation13 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    btn2.startAnimation(animation13);
+
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.vizivaitemcs);
                     mediaPlayer.start();
@@ -382,6 +438,11 @@ public void incrementRegreshTxt(){
             case R.id.btn3:
                 if (chiDa>=150000){
                     releaseMP();
+
+                    Animation animation14 = null;
+                    animation14 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    btn3.startAnimation(animation14);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.vsexobliaaal);
                     mediaPlayer.start();
@@ -393,6 +454,11 @@ public void incrementRegreshTxt(){
             case R.id.btn4:
                 if (chiDa>=250000){
                     releaseMP();
+
+                    Animation animation16 = null;
+                    animation16 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    btn4.startAnimation(animation16);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.scastyazdorovia);
                     mediaPlayer.start();
@@ -404,6 +470,11 @@ public void incrementRegreshTxt(){
             case R.id.btn5:
                 if (chiDa>=350000){
                     releaseMP();
+
+                    Animation animation18 = null;
+                    animation18 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    btn5.startAnimation(animation18);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.okno);
                     mediaPlayer.start();
@@ -415,6 +486,11 @@ public void incrementRegreshTxt(){
             case R.id.btn6:
                 if (chiDa>=500000){
                     releaseMP();
+
+                    Animation animation19 = null;
+                    animation19 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    btn6.startAnimation(animation19);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.proshyogidat);
                     mediaPlayer.start();
@@ -426,6 +502,11 @@ public void incrementRegreshTxt(){
             case R.id.btn7:
                 if (chiDa>=1000000){
                     releaseMP();
+
+                    Animation animation20 = null;
+                    animation20 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
+                    btn7.startAnimation(animation20);
+
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.svertuxi);
                     mediaPlayer.start();

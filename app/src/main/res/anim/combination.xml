@@ -7,7 +7,7 @@
     <!--android:repeatMode="restart"-->
 
 
-    <scalegit
+    <scale
         android:duration="300"
         android:fromXScale="1.0"
         android:fromYScale="1.0"
@@ -29,22 +29,4 @@
         android:toYScale="0.98" />
 
 
-    <!--<scale-->
-        <!--android:duration="2500"-->
-        <!--android:fromXScale="1.0"-->
-        <!--android:fromYScale="1.0"-->
-        <!--android:pivotX="50%"-->
-        <!--android:pivotY="50%"-->
-        <!--android:toXScale="2.0"-->
-        <!--android:toYScale="2.0" />-->
-
-    <!--<scale-->
-        <!--android:duration="2500"-->
-        <!--android:fromXScale="1.0"-->
-        <!--android:fromYScale="1.0"-->
-        <!--android:pivotX="50%"-->
-        <!--android:pivotY="50%"-->
-        <!--android:startOffset="2500"-->
-        <!--android:toXScale="0.5"-->
-        <!--android:toYScale="0.5" />-->
 </set>
