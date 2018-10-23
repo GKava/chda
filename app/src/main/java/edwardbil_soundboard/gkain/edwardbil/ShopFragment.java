@@ -28,9 +28,12 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
-
         comment = view.findViewById(R.id.comment);
         comment.setOnClickListener(this);
+
+
+        MainActivity ma = (MainActivity) getActivity();
+        ma.invisibleGameView();
 
         return view;
     }
@@ -43,6 +46,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                 Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
                 startActivity(openlinkIntent);
                 break;
+
         }
     }
 }

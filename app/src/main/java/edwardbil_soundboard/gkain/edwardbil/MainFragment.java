@@ -59,6 +59,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         // Required empty public constructor
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
@@ -67,6 +68,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         editor.putInt(APP_PREFERENCES_CHIDA, chiDa);
         editor.putInt(APP_PREFERENCES_CHECKPOINT, checkpoint);
         editor.apply();
+
     }
 
     @Override
@@ -92,8 +94,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
                 container, false);
 
         mSettings = this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-
-        MobileAds.initialize(getActivity(), "ca-app-pub-1336421761813784/9903738272");
 
         helpview = view.findViewById(R.id.helpview);
         shareview = view.findViewById(R.id.shareview);
@@ -176,35 +176,71 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         loadRewardedVideoAd();
         testForOpenButton();
 
-        MobileAds.initialize(getActivity(),
-                "ca-app-pub-1336421761813784~1676720313");
-
-        mInterstitialAd = new InterstitialAd(getActivity());
-        mInterstitialAd.setAdUnitId("ca-app-pub-1336421761813784/5956773882");
-
 
         return view;
     }
 
-    public void showInterstitial (){
-//        if (chiDa==(10^20^600^900^1400^2100^2700^3300)) {
-//            if (mInterstitialAd.isLoaded()) {
-//                mInterstitialAd.show();
-//            }
-//        }
-//        if (chiDa==10){
-//            if (mInterstitialAd.isLoaded()) {
-//                mInterstitialAd.show();
-//            }
-//        }
+
+    @Override
+    public void onStart() {
+        MainActivity ma = (MainActivity) getActivity();
+        ma.visibleGameView();
+        super.onStart();
+    }
+
+    public void chanceChiDa(){
+    final Random random = new Random();
+
+    int chance1 = random.nextInt(100);
+    int chance2 = random.nextInt(1000);
+    int chance3 = random.nextInt(10000);
+
+    if ((chance1==0) & (chance2==0)){
+        chance1=1;
+    }
+    if ((chance1==0) & (chance3==0)){
+        chance1=1;
+    }
+    if ((chance2==0) & (chance3==0)){
+        chance2=1;
     }
 
 
+
+    if (chance1==0) {
+        if (getActivity() != null) {
+            MainActivity ma = (MainActivity) getActivity();
+            ma.showAnimate(1); // передать в параметрах картинку
+            chiDa = chiDa + 100;
+            header.setText(" Баланс \n ChiDaCoin: " + chiDa);
+        }
+    }
+
+    if (chance2==0) {
+        if (getActivity() != null) {
+            MainActivity ma = (MainActivity) getActivity();
+            ma.showAnimate(2);
+            chiDa = chiDa + 700;
+            header.setText(" Баланс \n ChiDaCoin: " + chiDa);
+        }
+    }
+
+    if (chance3==0) {
+        if (getActivity() != null) {
+            MainActivity ma = (MainActivity) getActivity();
+            ma.showAnimate(3);
+            chiDa = chiDa + 10000;
+            header.setText(" Баланс \n ChiDaCoin: " + chiDa);
+        }
+    }
+}
+
+
 public void incrementRegreshTxt(){
-    showInterstitial();
     chiDa=chiDa+chiDaIncrement;
     header.setText(" Баланс \n ChiDaCoin: " + chiDa );
     testForOpenButton();
+    chanceChiDa();
 }
     @Override
     public void onClick(View view) {
@@ -220,12 +256,16 @@ public void incrementRegreshTxt(){
             case R.id.helpview:
                createHelpDialog("Помощь","ChiDaCoins игровая валюта, с помощью которой можно открывать новые звуки и получать бонусы.\n \n" +
                        "Достигая определенных отметок вы начнете получать дополнительные ChiDaCois. \n\n" +
-                       "1.000 ChiDaCois   +2 за клик. \n" +
-                       "10.000 ChiDaCois +3 за клик. \n" +
-                       "50.000 ChiDaCois +5 за клик. \n" +
-                       "100.000 ChiDaCois +7 за клик. \n" +
-                       "250.000 ChiDaCois +8 за клик. \n" +
-                       "500.000 ChiDaCois +10 за клик. \n\n" +
+                       "1.000 ChiDaCoins   +3 за клик. \n" +
+                       "50.000 ChiDaCoins +5 за клик. \n" +
+                       "100.000 ChiDaCoins +7 за клик. \n" +
+                       "250.000 ChiDaCoins +8 за клик. \n" +
+                       "500.000 ChiDaCoins +9 за клик. \n" +
+                       "1.000.000 ChiDaCoins +10 за клик. \n\n" +
+                       "В приложении есть критические Чи Да, которые выпадают с определённым шансом, при этом вы получаете большое количество ChiDaCoins. \n\n" +
+                       "1%      +100 ChiDaCoins \n" +
+                       "0.1%   +700 ChiDaCoins \n" +
+                       "0.01% +10.00 ChiDaCoins \n\n" +
                        "*После удаления приложения игровой прогресс утрачивается* \n\n" +
                        "Так же вы можете получить 500 ChiDaCoins просмотрев видео с рекламой. \n");
                 break;
@@ -546,7 +586,7 @@ public void incrementRegreshTxt(){
         }
         if (chiDa >= 10000){
             soundtxt7.setText("Слыш, ты чё");
-            chiDaIncrement=3;
+
         }
         if (chiDa >= 15000){
             soundtxt8.setText("Я не понимаю");
@@ -563,8 +603,7 @@ public void incrementRegreshTxt(){
             if (checkpoint==0){
                 checkpoint=1;
                 createTwoButtonsAlertDialogRecord("!!! ПОЗДРАВЛЯЕМ !!!","Вы набрали 50000 ChiDaCoins!!! \n" +
-                        "Отныне за каждый клик вам будет начисляться по 5 ChiDaCois на баланс вместо 1 \n" +
-                        "Это поможет вам быстрее получить новые плюшки в следующих обновлениях ;) ");
+                        "Отныне за каждый клик вам будет начисляться по 5 ChiDaCois на баланс вместо 3");
             }
         }
 
@@ -587,16 +626,16 @@ public void incrementRegreshTxt(){
             btntxt5.setText("Идите домой");
         }
         if (chiDa >= 500000){
-            chiDaIncrement=10;
+            chiDaIncrement=9;
             btntxt6.setText("Прошу ожидать");
         }
         if (chiDa >= 1000000){
-            chiDaIncrement=30;
+            chiDaIncrement=10;
             btntxt7.setText("WIN");
             if (checkpoint==1){
                 checkpoint=5;
                 createTwoButtonsAlertDialogRecord("!!! ПОЗДРАВЛЯЕМ !!!","Вы набрали 1 Миллион ChiDaCoins!!! \n" +
-                        "Отныне за каждый клик вам будет начисляться по 30 ChiDaCois на баланс вместо 10 \n" +
+                        "Отныне за каждый клик вам будет начисляться по 10 ChiDaCois \n" +
                         "Это поможет вам быстрее получить новые плюшки в следующих обновлениях ;) ");
             }
         }
