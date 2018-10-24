@@ -43,12 +43,12 @@
         android:layout_margin="5dp">
 
         <ImageView
-            android:visibility="invisible"
+
             android:id="@+id/shop"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/ic_shopping_cart_black_24dp" />
+            android:background="@drawable/ic_star_black_24dp" />
 
         <ImageView
             android:id="@+id/helpview"

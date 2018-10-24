@@ -26,10 +26,9 @@ import com.google.android.gms.ads.MobileAds;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    public static FragmentManager fragmentManager;
-   ImageView image,game_view;
-   Handler mHandler;
 
+    ImageView image,game_view;
+    Handler mHandler;
     private static final String TAG = "MainActivity";
     public static final String APP_PREFERENCES_CHECKPOINTS = "ads_inter";
     public static final String APP_PREFERENCES = "ads_settings";
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AdView mAdView;
     private InterstitialAd mInterstitialAd;
     int intBanner =0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +59,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
-        fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container)!=null){
             if (savedInstanceState!=null){
                 return;
             }
-            fragmentManager.beginTransaction().add(R.id.fragment_container, new MainFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new MainFragment(), "MainFragment").commit();
         }
 
         startAnimGame();
@@ -87,18 +86,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-switch (v.getId()){
-    case R.id.game_view:
+        switch (v.getId()) {
+            case R.id.game_view:
                 viewAds();
-            fragmentManager.beginTransaction()
-//                    .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
-                    .replace(R.id.fragment_container, new MiniGameFragments())
-                    .addToBackStack(null)
-                    .commit();
-        Log.e(TAG, "Значение intBanner " + intBanner);
+                //MainFragment mf = new MainFragment();
+                //mf.sendBundleChiDa();
+                MiniGameFragments frag = new MiniGameFragments();
+                Bundle bundle = new Bundle();
+                bundle.putInt("coins", ((MainFragment)(getSupportFragmentManager().findFragmentByTag("MainFragment"))).chiDa);
+                frag.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, frag)
+                        .addToBackStack(null)
+                        .commit();
 
-        break;
-}
+
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.fragment_container, new MiniGameFragments())
+//                    .addToBackStack(null)
+//                    .commit();
+//        Log.e(TAG, "Значение intBanner " + intBanner);
+
+                break;
+        }
     }
 
     public void visibleGameView(){
@@ -132,16 +142,10 @@ for (int ti=2000; ti<=4000; ti=ti+2000) {
         if (imageResource==3){
             image.setImageResource(R.drawable.krit3 );
         }
-
         Animation animation1 = null;
         animation1 = AnimationUtils.loadAnimation(this, R.anim.left_right);
         image.startAnimation(animation1);
-
-
     }
-
-
-
 
     @Override
     protected void onResume() {

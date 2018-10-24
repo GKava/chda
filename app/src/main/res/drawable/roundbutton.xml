@@ -5,8 +5,8 @@
 
             <gradient
                 android:angle="90"
-                android:endColor="#d34261"
-                android:startColor="#823d95"
+                android:endColor="#823d95"
+                android:startColor="#d34261"
                 android:type="linear" />
 
             <stroke
@@ -17,10 +17,10 @@
             <!--<solid android:color="#B7B7FB" />-->
 
             <corners
-                android:bottomLeftRadius="1.0dip"
+                android:bottomLeftRadius="30.0dip"
                 android:bottomRightRadius="30.0dip"
-                android:topLeftRadius="30.0dip"
-                android:topRightRadius="1.0dip" />
+                android:topLeftRadius="5.0dip"
+                android:topRightRadius="5.0dip" />
         </shape>
     </item>
 </selector>

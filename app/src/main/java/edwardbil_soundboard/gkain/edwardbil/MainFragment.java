@@ -8,8 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,15 +43,16 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     ImageView shareview,helpview,shop;
     TextView header;
     Random random = new Random();
-    int chiDa = 0;
+
+    int chiDa=0;
+
     int chiDaIncrement=1;
     int checkpoint=0;
     private RewardedVideoAd mRewardedVideoAd;
-    private InterstitialAd mInterstitialAd;
+
     TextView soundtxt2,soundtxt3,soundtxt4,soundtxt5,soundtxt6,soundtxt7,soundtxt8,soundtxt9,soundtxt10,soundtxt11, btntxt1,btntxt2,btntxt3,btntxt4,btntxt5,btntxt6,btntxt7;
     Button soundbutton2,soundbutton3,soundbutton4,soundbutton5,soundbutton6,soundbutton7,soundbutton8,soundbutton9,soundbutton10,soundbutton11,btn1,btn2,btn3,btn4,btn5,btn6,btn7;
     Context context;
-    //    private InterstitialAd mInterstitialAd;
     public static final String APP_PREFERENCES_CHIDA = "act";
     public static final String APP_PREFERENCES_CHECKPOINT = "checkpoint";
     public static final String APP_PREFERENCES = "mysettings";
@@ -59,6 +62,21 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         // Required empty public constructor
     }
 
+    public void sendBundleChiDa(){
+        MiniGameFragments frag = new MiniGameFragments();
+        Bundle bundle = new Bundle();
+        bundle.putInt("coins", chiDa);
+        frag.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, frag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public void miniGameMethod(int coins){
+        chiDa = chiDa - coins;
+        //header.setText(" Баланс \n ChiDaCoin: " + chiDa );
+    }
 
     @Override
     public void onPause() {
@@ -74,6 +92,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     @Override
     public void onResume() {
         super.onResume();
+
         mRewardedVideoAd.resume(getActivity());
         if (mSettings.contains(APP_PREFERENCES_CHIDA)) {
             chiDa = mSettings.getInt(APP_PREFERENCES_CHIDA, 0);
@@ -81,7 +100,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         if (mSettings.contains(APP_PREFERENCES_CHECKPOINT)) {
             checkpoint = mSettings.getInt(APP_PREFERENCES_CHECKPOINT, 0);
         }
-
 
         header.setText(" Баланс \n ChiDaCoin: " + chiDa );
         testForOpenButton();
@@ -113,6 +131,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         soundtxt10 = view.findViewById(R.id.soundtxt10);
         soundtxt11 = view.findViewById(R.id.soundtxt11);
 
+        // 50.000 - 1.000.000
         soundbutton2 = view.findViewById(R.id.soundbutton2);
         soundbutton3 = view.findViewById(R.id.soundbutton3);
         soundbutton4 = view.findViewById(R.id.soundbutton4);
@@ -148,11 +167,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         btn6.setOnClickListener(this);
         btn7.setOnClickListener(this);
 
-
         randoms.setOnClickListener(this);
         shareview.setOnClickListener(this);
         admob.setOnClickListener(this);
-
 
         soundbutton2.setOnClickListener(this);
         soundbutton3.setOnClickListener(this);
@@ -169,14 +186,11 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         shop.setOnClickListener(this);
 
 
-
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getActivity());
         mRewardedVideoAd.setRewardedVideoAdListener(this);
 
         loadRewardedVideoAd();
         testForOpenButton();
-
-
         return view;
     }
 
@@ -190,7 +204,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
 
     public void chanceChiDa(){
     final Random random = new Random();
-
     int chance1 = random.nextInt(100);
     int chance2 = random.nextInt(1000);
     int chance3 = random.nextInt(10000);
@@ -204,9 +217,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     if ((chance2==0) & (chance3==0)){
         chance2=1;
     }
-
-
-
     if (chance1==0) {
         if (getActivity() != null) {
             MainActivity ma = (MainActivity) getActivity();
@@ -215,7 +225,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
             header.setText(" Баланс \n ChiDaCoin: " + chiDa);
         }
     }
-
     if (chance2==0) {
         if (getActivity() != null) {
             MainActivity ma = (MainActivity) getActivity();
@@ -224,7 +233,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
             header.setText(" Баланс \n ChiDaCoin: " + chiDa);
         }
     }
-
     if (chance3==0) {
         if (getActivity() != null) {
             MainActivity ma = (MainActivity) getActivity();
@@ -234,7 +242,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         }
     }
 }
-
 
 public void incrementRegreshTxt(){
     chiDa=chiDa+chiDaIncrement;
@@ -247,11 +254,12 @@ public void incrementRegreshTxt(){
       //  releaseMP();
         switch (view.getId()) {
             case R.id.shop:
-                MainActivity.fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, new ShopFragment())
-                        .addToBackStack(null)
-                        .commit();
+                createRateDialog("Оценка", "Поддержите разработчиков поставив оценку приложению. \n\nК оценке вы можете добавить комментарий, мы его обязательно прочтём и ответим вам.");
 
+//                MainActivity.fragmentManager.beginTransaction()
+//                        .replace(R.id.fragment_container, new ShopFragment())
+//                        .addToBackStack(null)
+//                        .commit();
                 break;
             case R.id.helpview:
                createHelpDialog("Помощь","ChiDaCoins игровая валюта, с помощью которой можно открывать новые звуки и получать бонусы.\n \n" +
@@ -278,11 +286,9 @@ public void incrementRegreshTxt(){
                 break;
             case R.id.randomss:
                 releaseMP();
-
                 Animation animation = null;
                 animation = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                 randoms.startAnimation(animation);
-
                 mediaPlayer = MediaPlayer.create(getActivity(), R.raw.chidatop);
                 mediaPlayer.start();
                 incrementRegreshTxt();
@@ -293,11 +299,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton2:
                 if (chiDa>=100){
                     releaseMP();
-
                     Animation animation2 = null;
                     animation2 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton2.startAnimation(animation2);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tineti);
                     mediaPlayer.start();
@@ -309,11 +313,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton3:
                 if (chiDa>=350){
                     releaseMP();
-
                     Animation animation3 = null;
                     animation3 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton3.startAnimation(animation3);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.tida3 );
                     mediaPlayer.start();
@@ -324,11 +326,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton4:
                 if (chiDa>=700){
                     releaseMP();
-
                     Animation animation4 = null;
                     animation4 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton4.startAnimation(animation4);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.chidarobot );
                     mediaPlayer.start();
@@ -339,11 +339,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton5:
                 if (chiDa>=1000){
                     releaseMP();
-
                     Animation animation5 = null;
                     animation5 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton5.startAnimation(animation5);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.neti );
                     mediaPlayer.start();
@@ -354,11 +352,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton6:
                 if (chiDa>=5000){
                     releaseMP();
-
                     Animation animation6 = null;
                     animation6 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton6.startAnimation(animation6);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k7500 );
                     mediaPlayer.start();
@@ -369,11 +365,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton7:
                 if (chiDa>=10000){
                     releaseMP();
-
                     Animation animation7 = null;
                     animation7 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton7.startAnimation(animation7);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k10000 );
                     mediaPlayer.start();
@@ -384,11 +378,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton8:
                 if (chiDa>=15000){
                     releaseMP();
-
                     Animation animation8 = null;
                     animation8 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton8.startAnimation(animation8);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k15000 );
                     mediaPlayer.start();
@@ -399,11 +391,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton9:
                 if (chiDa>=20000){
                     releaseMP();
-
                     Animation animation9 = null;
                     animation9 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton9.startAnimation(animation9);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k20000 );
                     mediaPlayer.start();
@@ -414,11 +404,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton10:
                 if (chiDa>=30000){
                     releaseMP();
-
                     Animation animation10 = null;
                     animation10 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton10.startAnimation(animation10);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k30000 );
                     mediaPlayer.start();
@@ -429,11 +417,9 @@ public void incrementRegreshTxt(){
             case R.id.soundbutton11:
                 if (chiDa>=50000){
                     releaseMP();
-
                     Animation animation11 = null;
                     animation11 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     soundbutton11.startAnimation(animation11);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.k50000 );
                     mediaPlayer.start();
@@ -445,11 +431,9 @@ public void incrementRegreshTxt(){
             case R.id.btn1:
                 if (chiDa>=75000){
                     releaseMP();
-
                     Animation animation12 = null;
                     animation12 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     btn1.startAnimation(animation12);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.neproshaytakix);
                     mediaPlayer.start();
@@ -461,12 +445,9 @@ public void incrementRegreshTxt(){
             case R.id.btn2:
                 if (chiDa>=100000){
                     releaseMP();
-
                     Animation animation13 = null;
                     animation13 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     btn2.startAnimation(animation13);
-
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.vizivaitemcs);
                     mediaPlayer.start();
@@ -478,11 +459,9 @@ public void incrementRegreshTxt(){
             case R.id.btn3:
                 if (chiDa>=150000){
                     releaseMP();
-
                     Animation animation14 = null;
                     animation14 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     btn3.startAnimation(animation14);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.vsexobliaaal);
                     mediaPlayer.start();
@@ -494,11 +473,9 @@ public void incrementRegreshTxt(){
             case R.id.btn4:
                 if (chiDa>=250000){
                     releaseMP();
-
                     Animation animation16 = null;
                     animation16 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     btn4.startAnimation(animation16);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.scastyazdorovia);
                     mediaPlayer.start();
@@ -510,11 +487,9 @@ public void incrementRegreshTxt(){
             case R.id.btn5:
                 if (chiDa>=350000){
                     releaseMP();
-
                     Animation animation18 = null;
                     animation18 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     btn5.startAnimation(animation18);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.okno);
                     mediaPlayer.start();
@@ -526,11 +501,9 @@ public void incrementRegreshTxt(){
             case R.id.btn6:
                 if (chiDa>=500000){
                     releaseMP();
-
                     Animation animation19 = null;
                     animation19 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     btn6.startAnimation(animation19);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.proshyogidat);
                     mediaPlayer.start();
@@ -542,11 +515,9 @@ public void incrementRegreshTxt(){
             case R.id.btn7:
                 if (chiDa>=1000000){
                     releaseMP();
-
                     Animation animation20 = null;
                     animation20 = AnimationUtils.loadAnimation(getActivity(), R.anim.combination);
                     btn7.startAnimation(animation20);
-
                     incrementRegreshTxt();
                     mediaPlayer = MediaPlayer.create(getActivity(), R.raw.svertuxi);
                     mediaPlayer.start();
@@ -562,12 +533,10 @@ public void incrementRegreshTxt(){
         Toast toast = Toast.makeText(getActivity(),
                 "Чтобы открыть этот звук, наберите "+ col + " ChiDaCoins!", Toast.LENGTH_SHORT);
         toast.show();
-
     }
 
 
     public void testForOpenButton(){
-
         if (chiDa >= 100){
             soundtxt2.setText("Ти или не ти?");
         }
@@ -586,7 +555,6 @@ public void incrementRegreshTxt(){
         }
         if (chiDa >= 10000){
             soundtxt7.setText("Слыш, ты чё");
-
         }
         if (chiDa >= 15000){
             soundtxt8.setText("Я не понимаю");
@@ -606,11 +574,9 @@ public void incrementRegreshTxt(){
                         "Отныне за каждый клик вам будет начисляться по 5 ChiDaCois на баланс вместо 3");
             }
         }
-
         if (chiDa >= 75000){
             btntxt1.setText("Я не прощаю таких");
         }
-
         if (chiDa >= 100000){
             chiDaIncrement=7;
             btntxt2.setText("Вызывайте МЧС");
@@ -640,6 +606,30 @@ public void incrementRegreshTxt(){
             }
         }
     }
+
+    private void createRateDialog(String title, String content) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(title);
+        builder.setMessage(content);
+        builder.setNegativeButton("ЗАКРЫТЬ",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+
+                    }
+                });
+        builder.setPositiveButton("Поставить оценку",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        Uri address = Uri.parse("https://play.google.com/store/apps/details?id=com.edwardbil_prank.tidatopstyle");
+                        Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
+                        startActivity(openlinkIntent);
+                    }
+                });
+        builder.show();
+    }
+
     private void createHelpDialog(String title, String content) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(title);
@@ -666,7 +656,6 @@ public void incrementRegreshTxt(){
                 });
         builder.show();
     }
-
 
     private void createTwoButtonsAlertDialog(String title, String content) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -723,7 +712,6 @@ public void incrementRegreshTxt(){
                 });
         builder.show();
     }
-
 
     private void releaseMP() {
         if (mediaPlayer != null) {
