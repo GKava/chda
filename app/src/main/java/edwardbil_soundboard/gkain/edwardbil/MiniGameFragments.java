@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,8 +136,8 @@ public class MiniGameFragments extends Fragment implements View.OnClickListener{
             wheel3.stopWheel();
 
             if (wheel1.currentIndex == wheel2.currentIndex && wheel2.currentIndex == wheel3.currentIndex) {
-                coins=coins+stavka;
-                txtv.setText("+"+stavka+" ChiDaCoins ");
+                coins=coins+stavka*2;
+                txtv.setText("+"+stavka*2+" ChiDaCoins ");
                 coinsString = String.valueOf(coins);
                 score.setText(coinsString);
 
@@ -148,7 +149,7 @@ public class MiniGameFragments extends Fragment implements View.OnClickListener{
                 score.setText(coinsString);
             } else {
                 coins=coins-stavka;
-                txtv.setText("+"+stavka+" ChiDaCoins ");
+                txtv.setText("-"+stavka+" ChiDaCoins ");
                 coinsString = String.valueOf(coins);
                 score.setText(coinsString);
             }
@@ -157,59 +158,72 @@ public class MiniGameFragments extends Fragment implements View.OnClickListener{
             isStarted = false;
 
         } else {
-            if (coins>1) {
+            if (edTxt.getText().length()!=0) {
                 stavka = Integer.parseInt(edTxt.getText().toString());
+                if (coins>stavka){
+            if (coins>=50 & stavka <= coins & stavka>=50) {
 
-                if (stavka<=coins) {
 
-                    wheel1 = new Wheel(new Wheel.WheelListener() {
+                comment.setClickable(false);
+                comment.setText("...");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        comment.setClickable(true);
+                        comment.setText("Stop");
+                    }
+                }, 3000);
+
+            wheel1 = new Wheel(new Wheel.WheelListener() {
+                @Override
+                public void newImage(final int img) {
+                    runOnUiThread(new Runnable() {
                         @Override
-                        public void newImage(final int img) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    img1.setImageResource(img);
-                                }
-                            });
+                        public void run() {
+                            img1.setImageResource(img);
                         }
-                    }, 100, randomLong(0, 200));
+                    });
+                }
+            }, 100, randomLong(0, 200));
 
-                    wheel1.start();
+            wheel1.start();
 
-                    wheel2 = new Wheel(new Wheel.WheelListener() {
+            wheel2 = new Wheel(new Wheel.WheelListener() {
+                @Override
+                public void newImage(final int img) {
+                    runOnUiThread(new Runnable() {
                         @Override
-                        public void newImage(final int img) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    img2.setImageResource(img);
-                                }
-                            });
+                        public void run() {
+                            img2.setImageResource(img);
                         }
-                    }, 100, randomLong(150, 400));
+                    });
+                }
+            }, 100, randomLong(150, 400));
 
-                    wheel2.start();
+            wheel2.start();
 
-                    wheel3 = new Wheel(new Wheel.WheelListener() {
+            wheel3 = new Wheel(new Wheel.WheelListener() {
+                @Override
+                public void newImage(final int img) {
+                    runOnUiThread(new Runnable() {
                         @Override
-                        public void newImage(final int img) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    img3.setImageResource(img);
-                                }
-                            });
+                        public void run() {
+                            img3.setImageResource(img);
                         }
-                    }, 100, randomLong(150, 400));
+                    });
+                }
+            }, 100, randomLong(150, 400));
 
-                    wheel3.start();
+            wheel3.start();
 
-                    comment.setText("Stop");
-                    txtv.setText("");
-                    isStarted = true;
-                }else{ Toast toast = Toast.makeText(getActivity(), "У вас недостаточно ChiDaCoins на балансе", Toast.LENGTH_SHORT);toast.show();  }
+        //    comment.setText("Stop");
+            txtv.setText("");
+            isStarted = true;
+        } else { Toast toast = Toast.makeText(getActivity(), "Минимальная сумма 50 ChiDaCoins" , Toast.LENGTH_SHORT);toast.show(); }
+                }else {Toast toast = Toast.makeText(getActivity(), "Недостаточно ChiDaCoins ", Toast.LENGTH_SHORT);toast.show();}
+            }else {Toast toast = Toast.makeText(getActivity(), "Некоректная сумма", Toast.LENGTH_SHORT);toast.show();}
 
-            }else { Toast toast = Toast.makeText(getActivity(), "Недостаточно ChiDaCoins", Toast.LENGTH_SHORT);toast.show(); }
 
         }
     }

@@ -31,10 +31,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Handler mHandler;
     private static final String TAG = "MainActivity";
     public static final String APP_PREFERENCES_CHECKPOINTS = "ads_inter";
-    public static final String APP_PREFERENCES = "ads_settings";
+    public static final String ADS_PREFERENCES = "ads_settings";
+    public static final String SPEND_TIME = "spend_time";
     private SharedPreferences adsSettings;
     private AdView mAdView;
     private InterstitialAd mInterstitialAd;
+    private long mStartTime;
     int intBanner =0;
 
     @Override
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        adsSettings = this.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        adsSettings = this.getSharedPreferences(ADS_PREFERENCES, Context.MODE_PRIVATE);
         image = (ImageView) findViewById(R.id.image);
         game_view = (ImageView) findViewById(R.id.game_view);
         game_view.setOnClickListener(this);
@@ -91,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 viewAds();
                 //MainFragment mf = new MainFragment();
                 //mf.sendBundleChiDa();
-                MiniGameFragments frag = new MiniGameFragments();
+//                MiniGameFragments frag = new MiniGameFragments();
+                GameMenuFragment frag = new GameMenuFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("coins", ((MainFragment)(getSupportFragmentManager().findFragmentByTag("MainFragment"))).chiDa);
                 frag.setArguments(bundle);
@@ -126,10 +129,11 @@ for (int ti=2000; ti<=4000; ti=ti+2000) {
             Animation animation1 = null;
             animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.game_view);
             game_view.startAnimation(animation1);
+              }
+            }, ti);
         }
-    }, ti);
-}
     }
+
 
     public void showAnimate(int imageResource){
 
@@ -150,6 +154,7 @@ for (int ti=2000; ti<=4000; ti=ti+2000) {
     @Override
     protected void onResume() {
         super.onResume();
+        mStartTime = System.currentTimeMillis();
         if (adsSettings.contains(APP_PREFERENCES_CHECKPOINTS)) {
             intBanner = adsSettings.getInt(APP_PREFERENCES_CHECKPOINTS, 0);
         }
@@ -167,7 +172,16 @@ for (int ti=2000; ti<=4000; ti=ti+2000) {
         super.onPause();
         SharedPreferences.Editor editor = adsSettings.edit();
         editor.putInt(APP_PREFERENCES_CHECKPOINTS, intBanner);
-        editor.apply();
         mAdView.pause();
+
+        long spendTime = System.currentTimeMillis() - mStartTime;
+        editor.putLong(SPEND_TIME, adsSettings.getLong(SPEND_TIME, 0) + spendTime);
+
+        editor.apply();
+    }
+
+    public long getSpendTime() {
+        long spendTime = System.currentTimeMillis() - mStartTime;
+        return adsSettings.getLong(SPEND_TIME, 0) + spendTime;
     }
 }

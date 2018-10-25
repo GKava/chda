@@ -47,6 +47,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     int chiDa=0;
 
     int chiDaIncrement=1;
+    int critScore=0;
     int checkpoint=0;
     private RewardedVideoAd mRewardedVideoAd;
 
@@ -55,6 +56,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
     Context context;
     public static final String APP_PREFERENCES_CHIDA = "act";
     public static final String APP_PREFERENCES_CHECKPOINT = "checkpoint";
+    public static final String APP_PREFERENCES_CRIT_SCORE = "crit_score";
+    public static final String APP_PREFERENCES_CHIDA_INCREMENT = "chida_increment";
     public static final String APP_PREFERENCES = "mysettings";
     private SharedPreferences mSettings;
 
@@ -62,21 +65,21 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         // Required empty public constructor
     }
 
-    public void sendBundleChiDa(){
-        MiniGameFragments frag = new MiniGameFragments();
-        Bundle bundle = new Bundle();
-        bundle.putInt("coins", chiDa);
-        frag.setArguments(bundle);
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, frag)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    public void miniGameMethod(int coins){
-        chiDa = chiDa - coins;
-        //header.setText(" Баланс \n ChiDaCoin: " + chiDa );
-    }
+//    public void sendBundleChiDa(){
+//        MiniGameFragments frag = new MiniGameFragments();
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("coins", chiDa);
+//        frag.setArguments(bundle);
+//        getActivity().getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment_container, frag)
+//                .addToBackStack(null)
+//                .commit();
+//    }
+//
+//    public void miniGameMethod(int coins){
+//        chiDa = chiDa - coins;
+//        //header.setText(" Баланс \n ChiDaCoin: " + chiDa );
+//    }
 
     @Override
     public void onPause() {
@@ -84,7 +87,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         mRewardedVideoAd.pause(getActivity());
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putInt(APP_PREFERENCES_CHIDA, chiDa);
+        editor.putInt(APP_PREFERENCES_CHIDA_INCREMENT, chiDaIncrement);
         editor.putInt(APP_PREFERENCES_CHECKPOINT, checkpoint);
+        editor.putInt(APP_PREFERENCES_CRIT_SCORE, critScore);
         editor.apply();
 
     }
@@ -97,8 +102,14 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
         if (mSettings.contains(APP_PREFERENCES_CHIDA)) {
             chiDa = mSettings.getInt(APP_PREFERENCES_CHIDA, 0);
         }
+        if (mSettings.contains(APP_PREFERENCES_CHIDA_INCREMENT)) {
+            chiDaIncrement = mSettings.getInt(APP_PREFERENCES_CHIDA_INCREMENT, 0);
+        }
         if (mSettings.contains(APP_PREFERENCES_CHECKPOINT)) {
             checkpoint = mSettings.getInt(APP_PREFERENCES_CHECKPOINT, 0);
+        }
+        if (mSettings.contains(APP_PREFERENCES_CRIT_SCORE)) {
+            critScore = mSettings.getInt(APP_PREFERENCES_CRIT_SCORE, 0);
         }
 
         header.setText(" Баланс \n ChiDaCoin: " + chiDa );
@@ -223,6 +234,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
             ma.showAnimate(1); // передать в параметрах картинку
             chiDa = chiDa + 100;
             header.setText(" Баланс \n ChiDaCoin: " + chiDa);
+            critScore++;
         }
     }
     if (chance2==0) {
@@ -231,6 +243,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
             ma.showAnimate(2);
             chiDa = chiDa + 700;
             header.setText(" Баланс \n ChiDaCoin: " + chiDa);
+            critScore++;
         }
     }
     if (chance3==0) {
@@ -239,6 +252,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Rewa
             ma.showAnimate(3);
             chiDa = chiDa + 10000;
             header.setText(" Баланс \n ChiDaCoin: " + chiDa);
+            critScore++;
         }
     }
 }
@@ -262,20 +276,13 @@ public void incrementRegreshTxt(){
 //                        .commit();
                 break;
             case R.id.helpview:
-               createHelpDialog("Помощь","ChiDaCoins игровая валюта, с помощью которой можно открывать новые звуки и получать бонусы.\n \n" +
-                       "Достигая определенных отметок вы начнете получать дополнительные ChiDaCois. \n\n" +
-                       "1.000 ChiDaCoins   +3 за клик. \n" +
-                       "50.000 ChiDaCoins +5 за клик. \n" +
-                       "100.000 ChiDaCoins +7 за клик. \n" +
-                       "250.000 ChiDaCoins +8 за клик. \n" +
-                       "500.000 ChiDaCoins +9 за клик. \n" +
-                       "1.000.000 ChiDaCoins +10 за клик. \n\n" +
-                       "В приложении есть критические Чи Да, которые выпадают с определённым шансом, при этом вы получаете большое количество ChiDaCoins. \n\n" +
-                       "1%      +100 ChiDaCoins \n" +
-                       "0.1%   +700 ChiDaCoins \n" +
-                       "0.01% +10.00 ChiDaCoins \n\n" +
-                       "*После удаления приложения игровой прогресс утрачивается* \n\n" +
-                       "Так же вы можете получить 500 ChiDaCoins просмотрев видео с рекламой. \n");
+                InfoFragment infoFragment = new InfoFragment();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, infoFragment)
+                        .addToBackStack(null)
+                        .commit();
+
                 break;
             case R.id.shareview:
                 Intent sendIntent = new Intent();
@@ -630,32 +637,32 @@ public void incrementRegreshTxt(){
         builder.show();
     }
 
-    private void createHelpDialog(String title, String content) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(title);
-        builder.setMessage(content);
-        builder.setNegativeButton("ЗАКРЫТЬ",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-
-                    }
-                });
-        builder.setPositiveButton("ПОСМОТРЕТЬ ВИДЕО И ПОЛУЧИТЬ 500 ChiDaCois",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                        if (mRewardedVideoAd.isLoaded()) {
-                            mRewardedVideoAd.show();
-                        } else {
-                            Toast toast = Toast.makeText(getActivity(),
-                                    "Что-то пошло не так, возможно проблемы с интернетом или загрузкой рекламы \nПопробуйте посмотреть видео позже.", Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                    }
-                });
-        builder.show();
-    }
+//    private void createHelpDialog(String title, String content) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setTitle(title);
+//        builder.setMessage(content);
+//        builder.setNegativeButton("ЗАКРЫТЬ",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog,
+//                                        int which) {
+//
+//                    }
+//                });
+//        builder.setPositiveButton("ПОСМОТРЕТЬ ВИДЕО И ПОЛУЧИТЬ 500 ChiDaCois",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog,
+//                                        int which) {
+//                        if (mRewardedVideoAd.isLoaded()) {
+//                            mRewardedVideoAd.show();
+//                        } else {
+//                            Toast toast = Toast.makeText(getActivity(),
+//                                    "Что-то пошло не так, возможно проблемы с интернетом или загрузкой рекламы \nПопробуйте посмотреть видео позже.", Toast.LENGTH_SHORT);
+//                            toast.show();
+//                        }
+//                    }
+//                });
+//        builder.show();
+//    }
 
     private void createTwoButtonsAlertDialog(String title, String content) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -4,5 +4,25 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="banner_ad_unit_id">ca-app-pub-1336421761813784/7858985282</string>
+    <string name="info">"ChiDaCoins игровая валюта, с помощью которой можно открывать новые звуки и получать бонусы.\n \n"
+                       "Достигая определенных отметок вы начнете получать дополнительные ChiDaCois. \n\n"
+                       1.000 ChiDaCoins   +3 за клик. \n
+                       "50.000 ChiDaCoins +5 за клик. \n"
+                       "100.000 ChiDaCoins +7 за клик. \n"
+                       "250.000 ChiDaCoins +8 за клик. \n"
+                       "500.000 ChiDaCoins +9 за клик. \n"
+                       "1.000.000 ChiDaCoins +10 за клик.
+                       </string>
+
+    <string name="info2">"В приложении есть критические Чи Да, которые выпадают с определённым шансом, при этом вы получаете большое количество ChiDaCoins. \n\n"
+        "Шансы выпадения критического Чи Да \n\n"
+    "1%      +100 ChiDaCoins \n"
+    "0.1%   +700 ChiDaCoins \n"
+    "0.01% +10.00 ChiDaCoins \n\n"
+    "*После удаления приложения, игровой прогресс утрачивается* \n\n"
+    "Любой вопрос по приложению вы можете задать в отзыве к приложению в Google Play . "
+
+                       </string>
+
     <!--<string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>-->
 </resources>
