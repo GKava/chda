@@ -136,15 +136,15 @@ public class MiniGameFragments extends Fragment implements View.OnClickListener{
             wheel3.stopWheel();
 
             if (wheel1.currentIndex == wheel2.currentIndex && wheel2.currentIndex == wheel3.currentIndex) {
-                coins=coins+stavka*2;
-                txtv.setText("+"+stavka*2+" ChiDaCoins ");
+                coins=coins+stavka+stavka*2;
+                txtv.setText("+"+stavka+stavka*2+" ChiDaCoins x2.5 ");
                 coinsString = String.valueOf(coins);
                 score.setText(coinsString);
 
             } else if (wheel1.currentIndex == wheel2.currentIndex || wheel2.currentIndex == wheel3.currentIndex
                     || wheel1.currentIndex == wheel3.currentIndex) {
                 coins=coins+stavka;
-                txtv.setText("+"+stavka+" ChiDaCoins ");
+                txtv.setText("+"+stavka+" ChiDaCoins  ");
                 coinsString = String.valueOf(coins);
                 score.setText(coinsString);
             } else {
@@ -185,7 +185,7 @@ public class MiniGameFragments extends Fragment implements View.OnClickListener{
                         }
                     });
                 }
-            }, 100, randomLong(0, 200));
+            }, 100, randomLong(0, 300));
 
             wheel1.start();
 
@@ -199,7 +199,7 @@ public class MiniGameFragments extends Fragment implements View.OnClickListener{
                         }
                     });
                 }
-            }, 100, randomLong(150, 400));
+            }, 100, randomLong(150, 300));
 
             wheel2.start();
 
@@ -213,7 +213,7 @@ public class MiniGameFragments extends Fragment implements View.OnClickListener{
                         }
                     });
                 }
-            }, 100, randomLong(150, 400));
+            }, 100, randomLong(150, 300));
 
             wheel3.start();
 
